@@ -14,6 +14,6 @@ def create_user(request: schemas.User, db: Session = Depends(database.get_db)):
     return user.create(request, db)
 
 
-@router.get("/{id}", response_model=schemas.ShowUser, status_code=status.HTTP_200_OK)
-def user_get(id: int,db: Session = Depends(database.get_db), get_current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return user.get_user(id, db)
+@router.get("/{username}", response_model=schemas.ShowUser, status_code=status.HTTP_200_OK)
+def user_get(username: str,db: Session = Depends(database.get_db), get_current_user: schemas.User = Depends(oauth2.get_current_user)):
+    return user.get_user(username, db)
