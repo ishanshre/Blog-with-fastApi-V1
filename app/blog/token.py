@@ -31,9 +31,12 @@ def decode_token(token):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Token")
 
 
-def encode_refresh_token(data: dict):
+def encode_refresh_token(data: dict, expire_delta: Union[timedelta, None]=None):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(days=1)
+    if expire_delta:
+        expire = datetime.utcnow() + expire_delta
+    else:
+        expire = datetime.utcnow() + timedelta(days=1)
     to_encode.update({
         "exp":expire,
         "scope":"refresh_token",
