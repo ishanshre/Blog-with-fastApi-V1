@@ -24,7 +24,7 @@ def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(
 
 
 @router.post("/token/new")
-def getNewToken(refresh_token: str, db: Session = Depends(database.get_db)):
+def getNewToken(refresh_token: str):
     new_access_token = token.refresh_token(refresh_token=refresh_token)
     data = {
         "access_token":new_access_token,
